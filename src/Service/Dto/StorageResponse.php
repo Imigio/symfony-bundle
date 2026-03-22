@@ -77,4 +77,9 @@ class StorageResponse implements ResponseInterface
     {
         return $this->types;
     }
+
+    public function getTypeUrl(string $type): ?string
+    {
+        return $this->types[$type] ?? null;
+    }
 }
