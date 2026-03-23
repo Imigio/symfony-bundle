@@ -28,13 +28,13 @@ readonly class ImigioRouteGenerator
 
         if (null === $storageTypeName) {
             $path = sprintf(
-                '/api/storage/%s.jpg',
+                '/storage/%s.jpg',
                 $filename,
             );
         }
         else {
             $path = sprintf(
-                '/api/storage/%s/%s.jpg',
+                '/storage/%s/%s.jpg',
                 $storageTypeName,
                 $filename,
             );
