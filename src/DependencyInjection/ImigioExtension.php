@@ -23,5 +23,6 @@ class ImigioExtension extends SymfonyExtension
         $loader->load('services.yaml');
 
         $container->setParameter('imigioConfig', $config);
+        $container->setParameter('imigioProjectCname', $config['cname'] ?? null);
     }
 }

@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace Imigio\Twig;
 
-use Symfony\Component\DependencyInjection\Extension\AbstractExtension;
+use Imigio\Service\ImigioRouteGenerator;
+use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class TwigImigioExtension extends AbstractExtension
 {
+    public function __construct(
+        private readonly ImigioRouteGenerator $imigioRouteGenerator,
+    )
+    {}
+
     public function getFunctions(): array
     {
         return [
@@ -19,22 +25,8 @@ class TwigImigioExtension extends AbstractExtension
         ];
     }
 
-    public function imigioUrl(string $filename, string $storageTypeName = null): ?string
+    public function imigioUrl(?string $filename, string $storageTypeName = null): ?string
     {
-        if (null === $storageTypeName) {
-            $path = sprintf(
-                '/api/storage/%s.jpg',
-                $filename,
-            );
-        }
-        else {
-            $path = sprintf(
-                '/api/storage/%s/%s.jpg',
-                $storageTypeName,
-                $filename,
-            );
-        }
-
-        return 'https://imig.io' . $path;
+        return $this->imigioRouteGenerator->generateImageUrl($filename, $storageTypeName);
     }
 }

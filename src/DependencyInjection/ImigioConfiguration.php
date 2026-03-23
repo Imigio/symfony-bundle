@@ -21,6 +21,7 @@ class ImigioConfiguration implements ConfigurationInterface
                 ->scalarNode('token')
                     ->isRequired()
                 ->end()
+                ->scalarNode('cname')->end()
             ->end()
         ;
 

@@ -116,4 +116,16 @@ class ImigioClient
         return $this->deserializeCollection($response, StorageTypeResponse::class);
     }
 
+    public function deleteStorageByFilename(?string $filename): bool
+    {
+        if (null === $filename) {
+            return false;
+        }
+
+        $response = $this->getClient()->request('DELETE', '/api/storage/filename/' . $filename);
+
+        $this->handleErrors($response);
+
+        return true;
+    }
 }
