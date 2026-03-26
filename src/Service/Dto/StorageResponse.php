@@ -38,7 +38,7 @@ class StorageResponse implements ResponseInterface
         $storageOutput->size = $contents['size'] ?? null;
         $storageOutput->mimeType = $contents['mimeType'] ?? null;
         $storageOutput->url = $contents['url'] ?? null;
-        $storageOutput->types = $contents['types'] ?? null;
+        $storageOutput->types = $contents['types'] ?? [];
 
         return $storageOutput;
     }

@@ -20,22 +20,30 @@ readonly class ImigioRouteGenerator
         return 'https://' . $this->imigioProjectCname;
     }
 
-    public function generateImageUrl(?string $filename, string $storageTypeName = null): string
+    public function generateImageUrl(?string $filename, string $storageTypeName = null, string $label = null): string
     {
         if (null === $filename) {
             return $this->getHostWithScheme() . '/assets/images/placeholder.svg';
         }
 
-        if (null === $storageTypeName) {
+        if (null !== $storageTypeName && null !== $label) {
             $path = sprintf(
-                '/storage/%s.jpg',
+                '/storage/%s/%s-%s.jpg',
+                $storageTypeName,
+                $label,
+                $filename,
+            );
+        }
+        elseif (null !== $storageTypeName) {
+            $path = sprintf(
+                '/storage/%s/%s.jpg',
+                $storageTypeName,
                 $filename,
             );
         }
         else {
             $path = sprintf(
-                '/storage/%s/%s.jpg',
-                $storageTypeName,
+                '/storage/%s.jpg',
                 $filename,
             );
         }
