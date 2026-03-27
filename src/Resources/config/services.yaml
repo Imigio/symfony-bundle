@@ -1,10 +1,4 @@
 services:
-#    BpolNet\Bundle\LangleyBundle\Command\LangleyDumpCommand:
-#        public: true
-#        arguments:
-#            - '@BpolNet\Bundle\LangleyBundle\Service\Langley'
-#        tags:
-#            - { name: 'console.command', command: 'langley:dump' }
     _defaults:
         autowire: true
         autoconfigure: true
@@ -20,8 +14,6 @@ services:
         arguments:
             - '@?'
     Imigio\Twig\TwigImigioExtension:
-#        autowire: true
-#        autoconfigure: true
         tags:
             - { name: twig.extension }
 

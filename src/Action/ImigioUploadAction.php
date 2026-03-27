@@ -69,17 +69,6 @@ class ImigioUploadAction
 
         $this->eventDispatcher->dispatch(new ImigioFileUploaded($storageResponse, $object));
 
-//        switch (true) {
-//            case $object instanceof Product:
-//                $object->setImigioCoverFilename($storageResponse['filename']);
-//                break;
-//            case $object instanceof Brand:
-////                $object->setStorage($data);
-//                break;
-//        }
-
-//        $this->managerRegistry->getManager()->flush();
-
         return new JsonResponse($storageResponse->toArray());
     }
 }
