@@ -6,18 +6,24 @@ services:
 #        tags:
 #            - { name: 'console.command', command: 'langley:dump' }
     _defaults:
+        autowire: true
+        autoconfigure: true
         bind:
             $imigioProjectCname: '%imigioProjectCname%'
+
+    Imigio\Action\:
+        resource: '../../Action'
+        tags: [ 'controller.service_arguments' ]
 
     Imigio\Service\ImigioClient:
         autowire: false
         arguments:
             - '@?'
     Imigio\Twig\TwigImigioExtension:
-        autowire: true
-        autoconfigure: true
+#        autowire: true
+#        autoconfigure: true
         tags:
             - { name: twig.extension }
 
-    Imigio\Service\ImigioRouteGenerator:
-        public: true
+    Imigio\Service\ImigioRouteGenerator: ~
+    Imigio\Service\ImigioRelationMapping: ~

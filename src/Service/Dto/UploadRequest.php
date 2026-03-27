@@ -6,7 +6,7 @@ namespace Imigio\Service\Dto;
 
 use SplFileInfo;
 
-readonly class UploadRequest
+class UploadRequest
 {
     public function __construct(
         private SplFileInfo $file,
