@@ -5,11 +5,15 @@
   "keywords": [
     "images",
     "storage",
-    "transform"
+    "transform",
+    "crop",
+    "resize",
+    "deliver"
   ],
   "require": {
-    "php": "^8.2",
+    "php": "^8.0",
     "ext-json": "*",
+    "doctrine/orm": "^3",
     "guzzlehttp/guzzle": "^7.10",
     "symfony/config": "^4.0|^5.0|^6.0|^7.0",
     "symfony/console": "^4.0|^5.0|^6.0|^7.0",

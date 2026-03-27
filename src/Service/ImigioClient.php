@@ -5,11 +5,19 @@ declare(strict_types=1);
 namespace Imigio\Service;
 
 use GuzzleHttp\Client;
+use Imigio\Exception\AccessDeniedImigioException;
+use Imigio\Exception\BadRequestImigioException;
+use Imigio\Exception\ConflictImigioException;
+use Imigio\Exception\ImigioException;
+use Imigio\Exception\NotFountImigioException;
+use Imigio\Exception\UnauthorizedImigioException;
+use Imigio\Exception\UnprocessableEntityImigioException;
 use Imigio\Service\Dto\RelationResponse;
 use Imigio\Service\Dto\ResponseInterface;
 use Imigio\Service\Dto\StorageResponse;
 use Imigio\Service\Dto\StorageTypeResponse;
 use Imigio\Service\Dto\UploadRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class ImigioClient
 {
@@ -100,10 +108,26 @@ class ImigioClient
         return $responseClass::fromArray($contents);
     }
 
-    private function handleErrors($response)
+    private function handleErrors($response): void
     {
-        if ($response->getStatusCode() !== 201) {
+        $exception = match ($response->getStatusCode()) {
+            Response::HTTP_BAD_REQUEST => BadRequestImigioException::class,//400
+            Response::HTTP_UNAUTHORIZED => UnauthorizedImigioException::class,//401
+            Response::HTTP_FORBIDDEN => AccessDeniedImigioException::class,//403
+            Response::HTTP_NOT_FOUND => NotFountImigioException::class,//404
+            Response::HTTP_CONFLICT => ConflictImigioException::class,//409
+            Response::HTTP_UNPROCESSABLE_ENTITY => UnprocessableEntityImigioException::class,//422
 
+            Response::HTTP_BAD_GATEWAY,
+            Response::HTTP_INTERNAL_SERVER_ERROR,
+            Response::HTTP_TOO_MANY_REQUESTS,
+            Response::HTTP_REQUEST_TIMEOUT,
+            Response::HTTP_SERVICE_UNAVAILABLE => ImigioException::class,
+            default => null,
+        };
+
+        if ($exception) {
+            throw new $exception;
         }
     }
 

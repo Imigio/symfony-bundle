@@ -22,6 +22,15 @@ class ImigioConfiguration implements ConfigurationInterface
                     ->isRequired()
                 ->end()
                 ->scalarNode('cname')->end()
+
+                ->arrayNode('relations')
+                    ->isRequired()
+//                    ->requiresAtLeastOneElement()
+                    ->defaultValue([])
+                    ->useAttributeAsKey('name')
+                    ->prototype('scalar')->end()
+                ->end()
+
             ->end()
         ;
 

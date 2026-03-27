@@ -12,6 +12,10 @@ class StorageResponse implements ResponseInterface
 
     private ?string $filename = null;
 
+    private ?string $relationName = null;
+
+    private ?string $relationId = null;
+
     private ?int $size = null;
 
     private ?string $mimeType = null;
@@ -20,27 +24,35 @@ class StorageResponse implements ResponseInterface
 
     private array $types = [];
 
-//  "filename8": "21aa510a",
-//	"filename": "21aa510aa92d0a666bcc219fa1882cc2b2dc81c4",
-//	"size": 597590,
-//	"mimeType": "image\/webp",
-//	"url": "https:\/\/imig.io.local\/api\/storage\/21aa510a.webp",
-//	"types": {
-//		"image": "https:\/\/dupa.blada\/api\/storage\/21aa510a\/image\/abc.webp"
-//	}
-
     public static function fromArray(array $contents): StorageResponse
     {
         $storageOutput = new self();
         $storageOutput->id = $contents['id'] ?? null;
         $storageOutput->filename8 = $contents['filename8'] ?? null;
         $storageOutput->filename = $contents['filename'] ?? null;
+        $storageOutput->relationName = $contents['relationName'] ?? null;
+        $storageOutput->relationId = $contents['relationId'] ?? null;
         $storageOutput->size = $contents['size'] ?? null;
         $storageOutput->mimeType = $contents['mimeType'] ?? null;
         $storageOutput->url = $contents['url'] ?? null;
         $storageOutput->types = $contents['types'] ?? [];
 
         return $storageOutput;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'filename8' => $this->filename8,
+            'filename' => $this->filename,
+            'relationName' => $this->relationName,
+            'relationId' => $this->relationId,
+            'size' => $this->size,
+            'mimeType' => $this->mimeType,
+            'url' => $this->url,
+            'types' => $this->types,
+        ];
     }
 
     public function getId(): ?string
@@ -56,6 +68,16 @@ class StorageResponse implements ResponseInterface
     public function getFilename(): ?string
     {
         return $this->filename;
+    }
+
+    public function getRelationName(): ?string
+    {
+        return $this->relationName;
+    }
+
+    public function getRelationId(): ?string
+    {
+        return $this->relationId;
     }
 
     public function getSize(): ?int
