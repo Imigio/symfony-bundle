@@ -40,6 +40,11 @@ imigio:
 
 ## Listener
 
+Events:
+- Imigio\Event\ImigioFileUploaded
+- Imigio\Event\ImigioFileDeleted
+
+Example:
 `src/Listener/ImigioRelationListener`:
 
 ```php
