@@ -11,7 +11,7 @@ use Twig\TwigFunction;
 class TwigImigioExtension extends AbstractExtension
 {
     public function __construct(
-        private readonly ImigioRouteGenerator $imigioRouteGenerator,
+        private ImigioRouteGenerator $imigioRouteGenerator,
     )
     {}
 
@@ -25,8 +25,8 @@ class TwigImigioExtension extends AbstractExtension
         ];
     }
 
-    public function imigioUrl(?string $filename, string $storageTypeName = null): ?string
+    public function imigioUrl(?string $filename, string $storageTypeName = null, string $label = null): ?string
     {
-        return $this->imigioRouteGenerator->generateImageUrl($filename, $storageTypeName);
+        return $this->imigioRouteGenerator->generateImageUrl($filename, $storageTypeName, $label);
     }
 }
