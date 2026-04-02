@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Imigio\Service;
 
-readonly class ImigioRouteGenerator
+class ImigioRouteGenerator
 {
     public function __construct(
         private ?string $imigioProjectCname = null,
+        private ?string $imigioPlaceholder = null,
     )
     {}
 
@@ -23,7 +24,7 @@ readonly class ImigioRouteGenerator
     public function generateImageUrl(?string $filename, string $storageTypeName = null, string $label = null): string
     {
         if (null === $filename) {
-            return $this->getHostWithScheme() . '/assets/images/placeholder.svg';
+            return $this->getHostWithScheme() . '/' . trim($this->imigioPlaceholder, '/');
         }
 
         if (null !== $storageTypeName && null !== $label) {

@@ -24,5 +24,6 @@ class ImigioExtension extends SymfonyExtension
 
         $container->setParameter('imigioConfig', $config);
         $container->setParameter('imigioProjectCname', $config['cname'] ?? null);
+        $container->setParameter('imigioPlaceholder', $config['placeholder'] ?? null);
     }
 }
